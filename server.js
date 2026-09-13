@@ -1,5 +1,6 @@
 const express = require("express");
 const { spawn } = require("child_process");
+const youtubedl = require("youtube-dl-exec");
 const path = require("path");
 const fs = require("fs");
 
@@ -47,7 +48,12 @@ app.post("/info", (req, res) => {
         url
     ];
 
-    const p = spawn("yt-dlp", args);
+    const p = youtubedl.exec(url, {
+        noPlaylist: true,
+        dumpSingleJson: true,
+        skipDownload: true,
+        noWarnings: true
+    });
     let output = "";
     let error = "";
 
@@ -120,7 +126,14 @@ app.post("/download", (req, res) => {
         url
     ];
 
-    const p = spawn("yt-dlp", args);
+    const p = youtubedl.exec(url, {
+        noPlaylist: true,
+        newline: true,
+        progress: true,
+        format: "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]/b",
+        mergeOutputFormat: "mp4",
+        output: output
+    });
 
     let errorText = "";
 
