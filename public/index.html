@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tuktuki ♡</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+min-height:100vh;
+background:#080512;
+font-family:Arial,sans-serif;
+color:#fff;
+display:flex;
+justify-content:center;
+padding:25px 15px;
+}
+
+.main{
+width:100%;
+max-width:700px;
+text-align:center;
+}
+
+/* NAME */
+.name{
+font-family:cursive;
+font-size:70px;
+font-weight:900;
+font-style:italic;
+letter-spacing:3px;
+color:#ff65d4;
+text-shadow:
+0 0 5px #fff,
+0 0 15px #ff31c5,
+0 0 35px #ff31c5,
+0 0 70px #8b35ff;
+margin-top:10px;
+}
+
+.name span{
+color:#fff;
+}
+
+/* SUBTITLE */
+.subtitle{
+margin-top:-5px;
+font-size:14px;
+letter-spacing:3px;
+color:#d8bff5;
+}
+
+/* GIRL PHOTO */
+.photo-box{
+width:230px;
+height:280px;
+margin:28px auto 25px;
+padding:5px;
+border-radius:25px;
+background:linear-gradient(135deg,#ff3bc7,#8c3cff,#25c9ff);
+box-shadow:
+0 0 15px #ff3bc7,
+0 0 40px #8c3cff,
+0 0 70px #ff3bc755;
+}
+
+.photo-box img{
+width:100%;
+height:100%;
+display:block;
+object-fit:cover;
+border-radius:21px;
+}
+
+/* CARD */
+.card{
+background:#100b1fcc;
+border:1px solid #8b3cff88;
+border-radius:25px;
+padding:25px 20px;
+box-shadow:
+0 0 30px #8b3cff22,
+inset 0 0 25px #ff31c511;
+}
+
+.title{
+font-size:23px;
+font-weight:bold;
+margin-bottom:7px;
+}
+
+.desc{
+color:#a99fba;
+font-size:14px;
+margin-bottom:20px;
+}
+
+/* INPUT */
+.input{
+width:100%;
+padding:16px;
+border-radius:14px;
+border:2px solid #493365;
+outline:none;
+background:#07050d;
+color:white;
+font-size:15px;
+}
+
+.input:focus{
+border-color:#ff3bc7;
+box-shadow:0 0 20px #ff3bc744;
+}
+
+/* BUTTON */
+button{
+width:100%;
+margin-top:14px;
+padding:16px;
+border:0;
+border-radius:14px;
+background:linear-gradient(90deg,#ff2ebd,#863cff);
+color:white;
+font-size:17px;
+font-weight:bold;
+box-shadow:0 0 25px #c32cff55;
+}
+
+button:disabled{
+opacity:.6;
+}
+
+/* RESULT */
+#result{
+margin-top:20px;
+line-height:1.7;
+}
+
+.success{
+padding:15px;
+border:1px solid #22c55e;
+border-radius:14px;
+background:#22c55e12;
+}
+
+.error{
+padding:15px;
+border:1px solid #ff386f;
+border-radius:14px;
+background:#ff386f12;
+}
+
+.save{
+display:inline-block;
+margin-top:12px;
+padding:12px 22px;
+border-radius:10px;
+background:#16a34a;
+color:#fff;
+text-decoration:none;
+font-weight:bold;
+}
+
+.loader{
+width:42px;
+height:42px;
+margin:10px auto;
+border:4px solid #ffffff20;
+border-top-color:#ff3bc7;
+border-right-color:#8c3cff;
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+
+.features{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.feature{
+padding:8px 13px;
+border-radius:20px;
+background:#ffffff08;
+border:1px solid #ffffff12;
+font-size:12px;
+color:#aaa1bb;
+}
+
+.footer{
+margin-top:25px;
+font-size:12px;
+color:#615970;
+}
+
+@media(max-width:500px){
+.name{font-size:55px}
+.photo-box{
+width:190px;
+height:240px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="name">
+Tuktuki<span>♡</span>
+</div>
+
+<div class="subtitle">
+MY FAVOURITE PERSON
+</div>
+
+<div class="photo-box">
+<img src="girl.jpg" alt="Tuktuki">
+</div>
+
+<div class="card">
+
+<div class="title">
+🎬 Tuktuki Video Downloader
+</div>
+
+<div class="desc">
+YouTube / TikTok ভিডিও লিংক পেস্ট করুন
+</div>
+
+<input
+class="input"
+id="url"
+type="url"
+placeholder="ভিডিও লিংক এখানে পেস্ট করুন..."
+>
+
+<button
+id="btn"
+onclick="downloadVideo()">
+⬇️ DOWNLOAD VIDEO
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<div class="features">
+<div class="feature">⚡ Fast</div>
+<div class="feature">📱 Mobile</div>
+<div class="feature">♡ Tuktuki</div>
+</div>
+
+<div class="footer">
+Made with ♡ for Tuktuki
+</div>
+
+</div>
+
+<script>
+async function downloadVideo(){
+
+const url=document.getElementById("url").value.trim();
+const result=document.getElementById("result");
+const btn=document.getElementById("btn");
+
+if(!url){
+result.innerHTML='<div class="error">⚠️ ভিডিও লিংক দিন।</div>';
+return;
+}
+
+btn.disabled=true;
+btn.innerText="⏳ PROCESSING...";
+
+result.innerHTML=
+'<div><div class="loader"></div>ভিডিও প্রসেস হচ্ছে... ♡</div>';
+
+try{
+
+const response=await fetch("/download",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({url})
+});
+
+const data=await response.json();
+
+if(data.success){
+
+result.innerHTML=
+`<div class="success">
+✅ ভিডিও প্রস্তুত!<br>
+<a class="save"
+href="${data.download}"
+download>
+⬇️ SAVE VIDEO
+</a>
+</div>`;
+
+}else{
+
+result.innerHTML=
+`<div class="error">❌ ${data.message}</div>`;
+
+}
+
+}catch(error){
+
+result.innerHTML=
+'<div class="error">❌ Server-এর সাথে যোগাযোগ করা যাচ্ছে না।</div>';
+
+}
+
+btn.disabled=false;
+btn.innerText="⬇️ DOWNLOAD VIDEO";
+
+}
+</script>
+
+</body>
+</html>
