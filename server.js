@@ -15,12 +15,22 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/downloads", express.static(DOWNLOAD_DIR));
 
+function extractURL(text) {
+    const match = text.match(
+        /https?:\/\/(?:[A-Za-z0-9-]+\.)?(?:youtube\.com|youtu\.be|tiktok\.com)\/[^\s]+/i
+    );
+
+    if (!match) return "";
+
+    return match[0].replace(/[),.!?]+$/, "");
+}
+
 function validURL(url) {
-    return /^https?:\/\/(www\.)?(youtube\.com|youtu\.be|tiktok\.com)\//i.test(url);
+    return /^https?:\/\/(?:[A-Za-z0-9-]+\.)?(youtube\.com|youtu\.be|tiktok\.com)\//i.test(url);
 }
 
 app.post("/info", (req, res) => {
-    const url = (req.body.url || "").trim();
+    const url = extractURL(req.body.url || "");
 
     if (!url || !validURL(url)) {
         return res.status(400).json({
@@ -72,7 +82,7 @@ app.post("/info", (req, res) => {
 });
 
 app.post("/download", (req, res) => {
-    const url = (req.body.url || "").trim();
+    const url = extractURL(req.body.url || "");
 
     if (!url || !validURL(url)) {
         return res.status(400).json({
