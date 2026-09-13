@@ -3,210 +3,342 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tuktuki ♡</title>
+<meta name="theme-color" content="#0b0614">
+<title>Tuktuki ♡ Video Downloader</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#080512;
+    --card:#110a1dcc;
+    --text:#fff;
+    --muted:#aaa0bb;
+    --pink:#ff35c8;
+    --purple:#873cff;
+    --cyan:#27d9ff;
+    --border:#8b3cff66;
+}
+
+body.light{
+    --bg:#f7f2ff;
+    --card:#ffffffdd;
+    --text:#24182f;
+    --muted:#71677e;
+    --border:#9b65dd55;
+}
 
 body{
-min-height:100vh;
-background:#080512;
-font-family:Arial,sans-serif;
-color:#fff;
-display:flex;
-justify-content:center;
-padding:25px 15px;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 20% 10%,#ff2ebd18,transparent 30%),
+        radial-gradient(circle at 80% 30%,#743cff20,transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:Arial,sans-serif;
+    padding:20px 14px 35px;
+    transition:.3s;
 }
 
 .main{
-width:100%;
-max-width:700px;
-text-align:center;
+    width:100%;
+    max-width:720px;
+    margin:auto;
+    text-align:center;
 }
 
-/* NAME */
+.topbar{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:4px;
+}
+
+.theme{
+    width:auto;
+    margin:0;
+    padding:9px 13px;
+    border-radius:20px;
+    font-size:14px;
+    background:#ffffff0d;
+    border:1px solid var(--border);
+    box-shadow:none;
+}
+
 .name{
-font-family:cursive;
-font-size:70px;
-font-weight:900;
-font-style:italic;
-letter-spacing:3px;
-color:#ff65d4;
-text-shadow:
-0 0 5px #fff,
-0 0 15px #ff31c5,
-0 0 35px #ff31c5,
-0 0 70px #8b35ff;
-margin-top:10px;
+    font-family:cursive;
+    font-size:68px;
+    font-weight:900;
+    font-style:italic;
+    letter-spacing:3px;
+    color:var(--pink);
+    text-shadow:
+        0 0 5px #fff,
+        0 0 15px var(--pink),
+        0 0 35px var(--pink),
+        0 0 70px var(--purple);
+    animation:glow 2s ease-in-out infinite alternate;
 }
 
 .name span{
-color:#fff;
+    color:var(--text);
 }
 
-/* SUBTITLE */
+@keyframes glow{
+    from{filter:brightness(1)}
+    to{filter:brightness(1.25)}
+}
+
 .subtitle{
-margin-top:-5px;
-font-size:14px;
-letter-spacing:3px;
-color:#d8bff5;
+    margin-top:-5px;
+    font-size:13px;
+    letter-spacing:4px;
+    color:var(--muted);
 }
 
-/* GIRL PHOTO */
 .photo-box{
-width:230px;
-height:280px;
-margin:28px auto 25px;
-padding:5px;
-border-radius:25px;
-background:linear-gradient(135deg,#ff3bc7,#8c3cff,#25c9ff);
-box-shadow:
-0 0 15px #ff3bc7,
-0 0 40px #8c3cff,
-0 0 70px #ff3bc755;
+    width:220px;
+    height:270px;
+    margin:25px auto;
+    padding:5px;
+    border-radius:27px;
+    background:linear-gradient(135deg,var(--pink),var(--purple),var(--cyan));
+    box-shadow:
+        0 0 18px var(--pink),
+        0 0 45px #873cff88;
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    50%{transform:translateY(-7px)}
 }
 
 .photo-box img{
-width:100%;
-height:100%;
-display:block;
-object-fit:cover;
-border-radius:21px;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:22px;
+    display:block;
 }
 
-/* CARD */
 .card{
-background:#100b1fcc;
-border:1px solid #8b3cff88;
-border-radius:25px;
-padding:25px 20px;
-box-shadow:
-0 0 30px #8b3cff22,
-inset 0 0 25px #ff31c511;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:26px;
+    padding:24px 20px;
+    backdrop-filter:blur(15px);
+    box-shadow:
+        0 0 35px #873cff22,
+        inset 0 0 25px #ff31c511;
 }
 
 .title{
-font-size:23px;
-font-weight:bold;
-margin-bottom:7px;
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:7px;
 }
 
 .desc{
-color:#a99fba;
-font-size:14px;
-margin-bottom:20px;
+    color:var(--muted);
+    font-size:14px;
+    margin-bottom:18px;
 }
 
-/* INPUT */
 .input{
-width:100%;
-padding:16px;
-border-radius:14px;
-border:2px solid #493365;
-outline:none;
-background:#07050d;
-color:white;
-font-size:15px;
+    width:100%;
+    padding:16px;
+    border-radius:14px;
+    border:2px solid #493365;
+    outline:none;
+    background:#07050d;
+    color:#fff;
+    font-size:15px;
+}
+
+body.light .input{
+    background:#fff;
+    color:#24182f;
 }
 
 .input:focus{
-border-color:#ff3bc7;
-box-shadow:0 0 20px #ff3bc744;
+    border-color:var(--pink);
+    box-shadow:0 0 20px #ff3bc744;
 }
 
-/* BUTTON */
 button{
-width:100%;
-margin-top:14px;
-padding:16px;
-border:0;
-border-radius:14px;
-background:linear-gradient(90deg,#ff2ebd,#863cff);
-color:white;
-font-size:17px;
-font-weight:bold;
-box-shadow:0 0 25px #c32cff55;
+    width:100%;
+    margin-top:13px;
+    padding:16px;
+    border:0;
+    border-radius:14px;
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    box-shadow:0 0 25px #c32cff55;
+    cursor:pointer;
+}
+
+button:active{
+    transform:scale(.98);
 }
 
 button:disabled{
-opacity:.6;
+    opacity:.55;
 }
 
-/* RESULT */
+.preview{
+    display:none;
+    margin-top:18px;
+    padding:12px;
+    border:1px solid var(--border);
+    border-radius:18px;
+    text-align:left;
+    background:#ffffff06;
+}
+
+.preview img{
+    width:120px;
+    height:80px;
+    object-fit:cover;
+    border-radius:10px;
+    float:left;
+    margin-right:12px;
+}
+
+.preview-title{
+    font-weight:bold;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.preview-user{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
+
+.clear{
+    clear:both;
+}
+
 #result{
-margin-top:20px;
-line-height:1.7;
+    margin-top:18px;
+    line-height:1.7;
+}
+
+.success,.error{
+    padding:15px;
+    border-radius:15px;
 }
 
 .success{
-padding:15px;
-border:1px solid #22c55e;
-border-radius:14px;
-background:#22c55e12;
+    border:1px solid #22c55e;
+    background:#22c55e12;
 }
 
 .error{
-padding:15px;
-border:1px solid #ff386f;
-border-radius:14px;
-background:#ff386f12;
+    border:1px solid #ff386f;
+    background:#ff386f12;
+}
+
+.progress-wrap{
+    margin-top:12px;
+    background:#ffffff12;
+    border-radius:20px;
+    height:14px;
+    overflow:hidden;
+}
+
+.progress{
+    height:100%;
+    width:0%;
+    border-radius:20px;
+    background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan));
+    transition:width .25s;
+}
+
+.percent{
+    margin-top:7px;
+    font-weight:bold;
 }
 
 .save{
-display:inline-block;
-margin-top:12px;
-padding:12px 22px;
-border-radius:10px;
-background:#16a34a;
-color:#fff;
-text-decoration:none;
-font-weight:bold;
+    display:inline-block;
+    margin-top:12px;
+    padding:12px 22px;
+    border-radius:10px;
+    background:#16a34a;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+}
+
+.small-btn{
+    margin:0;
+    padding:10px;
+    font-size:13px;
+    background:#ffffff10;
+    border:1px solid var(--border);
+    box-shadow:none;
 }
 
 .loader{
-width:42px;
-height:42px;
-margin:10px auto;
-border:4px solid #ffffff20;
-border-top-color:#ff3bc7;
-border-right-color:#8c3cff;
-border-radius:50%;
-animation:spin 1s linear infinite;
+    width:40px;
+    height:40px;
+    margin:8px auto;
+    border:4px solid #ffffff20;
+    border-top-color:var(--pink);
+    border-right-color:var(--purple);
+    border-radius:50%;
+    animation:spin 1s linear infinite;
 }
 
 @keyframes spin{
-to{transform:rotate(360deg)}
+    to{transform:rotate(360deg)}
 }
 
 .features{
-display:flex;
-justify-content:center;
-gap:10px;
-flex-wrap:wrap;
-margin-top:20px;
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:20px;
 }
 
 .feature{
-padding:8px 13px;
-border-radius:20px;
-background:#ffffff08;
-border:1px solid #ffffff12;
-font-size:12px;
-color:#aaa1bb;
+    padding:8px 12px;
+    border-radius:20px;
+    background:#ffffff08;
+    border:1px solid #ffffff12;
+    font-size:12px;
+    color:var(--muted);
 }
 
 .footer{
-margin-top:25px;
-font-size:12px;
-color:#615970;
+    margin-top:24px;
+    font-size:12px;
+    color:var(--muted);
 }
 
 @media(max-width:500px){
-.name{font-size:55px}
-.photo-box{
-width:190px;
-height:240px;
-}
+    .name{font-size:53px}
+    .photo-box{
+        width:190px;
+        height:235px;
+    }
+    .card{
+        padding:20px 14px;
+    }
 }
 </style>
 </head>
@@ -215,13 +347,13 @@ height:240px;
 
 <div class="main">
 
-<div class="name">
-Tuktuki<span>♡</span>
+<div class="topbar">
+<button class="theme" id="themeBtn" onclick="toggleTheme()">🌙 Theme</button>
 </div>
 
-<div class="subtitle">
-MY FAVOURITE PERSON
-</div>
+<div class="name">Tuktuki<span>♡</span></div>
+
+<div class="subtitle">MY FAVOURITE PERSON</div>
 
 <div class="photo-box">
 <img src="girl.jpg" alt="Tuktuki">
@@ -229,9 +361,7 @@ MY FAVOURITE PERSON
 
 <div class="card">
 
-<div class="title">
-🎬 Tuktuki Video Downloader
-</div>
+<div class="title">🎬 Tuktuki Video Downloader</div>
 
 <div class="desc">
 YouTube / TikTok ভিডিও লিংক পেস্ট করুন
@@ -242,11 +372,21 @@ class="input"
 id="url"
 type="url"
 placeholder="ভিডিও লিংক এখানে পেস্ট করুন..."
+autocomplete="off"
 >
 
-<button
-id="btn"
-onclick="downloadVideo()">
+<button id="previewBtn" onclick="getInfo()">
+🔎 VIDEO INFO
+</button>
+
+<div class="preview" id="preview">
+<img id="thumb" src="" alt="Thumbnail">
+<div class="preview-title" id="previewTitle"></div>
+<div class="preview-user" id="previewUser"></div>
+<div class="clear"></div>
+</div>
+
+<button id="btn" onclick="downloadVideo()">
 ⬇️ DOWNLOAD VIDEO
 </button>
 
@@ -257,6 +397,7 @@ onclick="downloadVideo()">
 <div class="features">
 <div class="feature">⚡ Fast</div>
 <div class="feature">📱 Mobile</div>
+<div class="feature">🎬 Preview</div>
 <div class="feature">♡ Tuktuki</div>
 </div>
 
@@ -267,65 +408,242 @@ Made with ♡ for Tuktuki
 </div>
 
 <script>
+let currentURL = "";
+let progressTimer = null;
+
+function toggleTheme(){
+    document.body.classList.toggle("light");
+
+    const light = document.body.classList.contains("light");
+
+    localStorage.setItem("tuktukiTheme", light ? "light" : "dark");
+
+    document.getElementById("themeBtn").innerText =
+        light ? "☀️ Theme" : "🌙 Theme";
+}
+
+if(localStorage.getItem("tuktukiTheme") === "light"){
+    document.body.classList.add("light");
+    document.getElementById("themeBtn").innerText = "☀️ Theme";
+}
+
+async function getInfo(){
+
+    const url = document.getElementById("url").value.trim();
+    const preview = document.getElementById("preview");
+    const btn = document.getElementById("previewBtn");
+
+    if(!url){
+        showError("ভিডিও লিংক দিন।");
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerText = "⏳ LOADING...";
+
+    try{
+
+        const response = await fetch("/info",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({url})
+        });
+
+        const data = await response.json();
+
+        if(!data.success){
+            showError(data.message);
+            preview.style.display = "none";
+            return;
+        }
+
+        document.getElementById("thumb").src = data.thumbnail;
+        document.getElementById("previewTitle").innerText =
+            data.title || "Tuktuki Video";
+
+        document.getElementById("previewUser").innerText =
+            data.uploader ? "👤 " + data.uploader : "";
+
+        preview.style.display = "block";
+
+    }catch(e){
+        showError("Server-এর সাথে যোগাযোগ করা যাচ্ছে না।");
+    }
+
+    btn.disabled = false;
+    btn.innerText = "🔎 VIDEO INFO";
+}
+
 async function downloadVideo(){
 
-const url=document.getElementById("url").value.trim();
-const result=document.getElementById("result");
-const btn=document.getElementById("btn");
+    const url = document.getElementById("url").value.trim();
+    const result = document.getElementById("result");
+    const btn = document.getElementById("btn");
 
-if(!url){
-result.innerHTML='<div class="error">⚠️ ভিডিও লিংক দিন।</div>';
-return;
+    if(!url){
+        showError("ভিডিও লিংক দিন।");
+        return;
+    }
+
+    currentURL = url;
+
+    btn.disabled = true;
+    btn.innerText = "⏳ PROCESSING...";
+
+    result.innerHTML = `
+        <div>
+            <div class="loader"></div>
+            <b>ভিডিও প্রসেস হচ্ছে... ♡</b>
+
+            <div class="progress-wrap">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <div class="percent" id="percent">0%</div>
+        </div>
+    `;
+
+    try{
+
+        const response = await fetch("/download",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({url})
+        });
+
+        const data = await response.json();
+
+        if(!data.success){
+            showError(data.message);
+            resetButton();
+            return;
+        }
+
+        checkProgress(data.jobId);
+
+    }catch(e){
+
+        showError("Server-এর সাথে যোগাযোগ করা যাচ্ছে না।");
+        resetButton();
+    }
 }
 
-btn.disabled=true;
-btn.innerText="⏳ PROCESSING...";
+function checkProgress(id){
 
-result.innerHTML=
-'<div><div class="loader"></div>ভিডিও প্রসেস হচ্ছে... ♡</div>';
+    clearInterval(progressTimer);
 
-try{
+    progressTimer = setInterval(async ()=>{
 
-const response=await fetch("/download",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({url})
+        try{
+
+            const response = await fetch("/progress/" + id);
+            const data = await response.json();
+
+            const progress =
+                Math.round(data.progress || 0);
+
+            const bar = document.getElementById("progress");
+            const percent = document.getElementById("percent");
+
+            if(bar) bar.style.width = progress + "%";
+            if(percent) percent.innerText = progress + "%";
+
+            if(data.status === "complete"){
+
+                clearInterval(progressTimer);
+
+                document.getElementById("result").innerHTML = `
+                    <div class="success">
+                        ✅ ভিডিও প্রস্তুত হয়েছে!
+
+                        <br>
+
+                        <a class="save"
+                           href="${data.filename}"
+                           download>
+                           ⬇️ SAVE VIDEO
+                        </a>
+
+                        <div class="actions">
+                            <button class="small-btn"
+                                    onclick="copyLink('${location.origin}${data.filename}')">
+                                📋 COPY
+                            </button>
+
+                            <button class="small-btn"
+                                    onclick="shareVideo('${location.origin}${data.filename}')">
+                                📤 SHARE
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                resetButton();
+            }
+
+            if(data.status === "error"){
+
+                clearInterval(progressTimer);
+
+                showError(data.message);
+                resetButton();
+            }
+
+        }catch(e){
+
+            clearInterval(progressTimer);
+            showError("Progress পাওয়া যাচ্ছে না।");
+            resetButton();
+        }
+
+    },800);
+}
+
+function showError(message){
+
+    document.getElementById("result").innerHTML =
+        `<div class="error">⚠️ ${message}</div>`;
+}
+
+function resetButton(){
+
+    const btn = document.getElementById("btn");
+
+    btn.disabled = false;
+    btn.innerText = "⬇️ DOWNLOAD VIDEO";
+}
+
+async function copyLink(link){
+
+    try{
+        await navigator.clipboard.writeText(link);
+        alert("✅ Download link copied!");
+    }catch{
+        alert("Link copy করা যায়নি।");
+    }
+}
+
+async function shareVideo(link){
+
+    if(navigator.share){
+
+        try{
+            await navigator.share({
+                title:"Tuktuki Video",
+                text:"Tuktuki Video Downloader",
+                url:link
+            });
+        }catch{}
+        
+    }else{
+
+        copyLink(link);
+    }
+}
+
+document.getElementById("url").addEventListener("keydown",e=>{
+    if(e.key === "Enter") getInfo();
 });
-
-const data=await response.json();
-
-if(data.success){
-
-result.innerHTML=
-`<div class="success">
-✅ ভিডিও প্রস্তুত!<br>
-<a class="save"
-href="${data.download}"
-download>
-⬇️ SAVE VIDEO
-</a>
-</div>`;
-
-}else{
-
-result.innerHTML=
-`<div class="error">❌ ${data.message}</div>`;
-
-}
-
-}catch(error){
-
-result.innerHTML=
-'<div class="error">❌ Server-এর সাথে যোগাযোগ করা যাচ্ছে না।</div>';
-
-}
-
-btn.disabled=false;
-btn.innerText="⬇️ DOWNLOAD VIDEO";
-
-}
 </script>
 
 </body>
