@@ -124,6 +124,7 @@ app.post("/info", async (req, res) => {
 
         res.status(500).json({
             error: "ভিডিও তথ্য পাওয়া যাচ্ছে না।",
+            message: error.message || "Unknown error",
             details: error.message || "Unknown error"
         });
     }
@@ -138,7 +139,8 @@ app.post("/download", async (req, res) => {
 
     if (!url || !validURL(url)) {
         return res.status(400).json({
-            error: "Valid YouTube/TikTok URL দিন।"
+            error: "Valid YouTube/TikTok URL দিন।",
+            message: "Valid YouTube/TikTok URL দিন।"
         });
     }
 
@@ -271,7 +273,8 @@ app.get("/progress/:id", (req, res) => {
 
     if (!job) {
         return res.status(404).json({
-            error: "Job পাওয়া যায়নি।"
+            error: "Job পাওয়া যায়নি।",
+            message: "Job পাওয়া যায়নি।"
         });
     }
 
