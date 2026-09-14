@@ -548,7 +548,7 @@ function checkProgress(id){
             if(bar) bar.style.width = progress + "%";
             if(percent) percent.innerText = progress + "%";
 
-            if(data.status === "complete"){
+            if(data.status === "completed"){
 
                 clearInterval(progressTimer);
 
@@ -585,14 +585,14 @@ function checkProgress(id){
 
                 clearInterval(progressTimer);
 
-                showError(data.message);
+                showError(data.error || data.message || "Download failed");
                 resetButton();
             }
 
         }catch(e){
 
             clearInterval(progressTimer);
-            showError("Progress পাওয়া যাচ্ছে না।");
+            showError("Server error: Progress পাওয়া যাচ্ছে না।");
             resetButton();
         }
 

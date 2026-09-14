@@ -51,6 +51,31 @@ function validURL(url) {
     }
 }
 
+
+function friendlyError(error) {
+    const text = String(
+        error?.shortMessage ||
+        error?.stderr ||
+        error?.message ||
+        error ||
+        ""
+    );
+
+    if (/Sign in to confirm|not a bot|bot/i.test(text)) {
+        return "YouTube এই মুহূর্তে এই ভিডিওটির জন্য bot verification চাইছে। অন্য একটি publicly accessible ভিডিও দিয়ে চেষ্টা করুন।";
+    }
+
+    if (/Unexpected response from webpage|TikTok/i.test(text)) {
+        return "TikTok-এর এই ভিডিওটি বর্তমানে downloader extractor থেকে পাওয়া যাচ্ছে না। অন্য একটি publicly accessible ভিডিও দিয়ে চেষ্টা করুন।";
+    }
+
+    if (/Private|private/i.test(text)) {
+        return "এই ভিডিওটি private। Public ভিডিও ব্যবহার করুন।";
+    }
+
+    return "ভিডিওটি এখন ডাউনলোড করা যাচ্ছে না।";
+}
+
 function parseProgress(text) {
     const match = String(text).match(/(\d+(?:\.\d+)?)%/);
 
@@ -187,8 +212,7 @@ app.post("/download", async (req, res) => {
 
             if (job) {
                 job.status = "error";
-                job.error =
-                    error.message || "Download process failed";
+                job.error = friendlyError(error);
             }
         });
 
@@ -244,10 +268,7 @@ app.post("/download", async (req, res) => {
 
             if (job) {
                 job.status = "error";
-                job.error =
-                    error.shortMessage ||
-                    error.message ||
-                    "Download failed";
+                job.error = friendlyError(error);
             }
         }
 
@@ -258,8 +279,7 @@ app.post("/download", async (req, res) => {
 
         if (job) {
             job.status = "error";
-            job.error =
-                error.message || "Could not start downloader";
+            job.error = friendlyError(error);
         }
     }
 });
